@@ -6,6 +6,8 @@ dropdb:
 	docker exec -it postgres15 dropdb --username=root --owner=root simple_bank
 migrateup:
 	migrate -path db/migration -database "postgres://root:secret@localhost:5433/simple_bank?sslmode=disable" -verbose up
+migrateupaws:
+	migrate -path db/migration -database "postgresql://root:vnaUPlI1OmHIz7ivZW6r@simple-bank.cmpvxmfm9eak.ap-southeast-2.rds.amazonaws.com:5432/simple_bank" -verbose up
 migrateup1:
 	migrate -path db/migration -database "postgres://root:secret@localhost:5433/simple_bank?sslmode=disable" -verbose up 1
 migratedown:
@@ -21,4 +23,4 @@ server:
 mock:
 	mockgen -package mockdb -destination db/mock/store.go github.com/liquiddev99/simplebank/db/sqlc Store
 
-.PHONY: createdb dropdb postgres migrateup migratedown sqlc test server mock migrateup1 migratedown1
+.PHONY: createdb dropdb postgres migrateup migratedown sqlc test server mock migrateup1 migratedown1 migrateupaws
